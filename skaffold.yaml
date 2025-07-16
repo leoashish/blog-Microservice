@@ -1,0 +1,41 @@
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: blog-microservice
+build:
+  artifacts:
+    - image: ashishsingh123/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+    - image: ashishsingh123/comments
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+    - image: ashishsingh123/event-bus
+      context: event-bus
+      docker:
+        dockerfile: Dockerfile
+    - image: ashishsingh123/moderation
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+    - image: ashishsingh123/posts
+      context: posts
+      docker:
+        dockerfile: Dockerfile
+    - image: ashishsingh123/query
+      context: query
+      docker:
+        dockerfile: Dockerfile
+manifests:
+  rawYaml:
+    - infra/k8s/client-depl.yaml
+    - infra/k8s/comment-depl.yaml
+    - infra/k8s/event-bus-depl.yaml
+    - infra/k8s/ingress-serv.yaml
+    - infra/k8s/moderation-depl.yaml
+    - infra/k8s/posts-depl.yaml
+    - infra/k8s/posts-serv.yaml
+    - infra/k8s/posts.yaml.old
+    - infra/k8s/query-depl.yaml
