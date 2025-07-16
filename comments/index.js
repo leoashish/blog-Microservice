@@ -23,7 +23,7 @@ app.post("/posts/:id/comments", (req, res) => {
     const comments = commentsByPostId[req.params.id]|| [];
     comments.push({id: commentId, content, status: "pending"})
 
-    axios.post("http://localhost:4005/events", {
+    axios.post("http://event-bus-serv:4005/events", {
         type: "CommentCreated",
         data:{
             id: commentId,
@@ -46,7 +46,7 @@ app.post("/events", async(req, res)=>{
         
         const comment = commentsByPostId[postId].map(c => c.commentId == id)
         comment.status = status
-        await axios.post("http://localhost:4005/events", {
+        await axios.post("http://event-bus-serv:4005/events", {
             type: "CommentUpdated",
             data: {
                 id,
